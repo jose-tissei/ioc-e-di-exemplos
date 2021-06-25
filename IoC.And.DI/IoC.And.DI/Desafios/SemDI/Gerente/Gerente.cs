@@ -12,40 +12,49 @@ namespace IoC.And.DI.Desafios.SemDI.Gerente
 
     public class Coordenador
     {
-        private IList<Colaborador> colaboradores;
+        private IList<IColaborador> colaboradores;
 
         public Coordenador()
         {
-            colaboradores = new Colaborador[] { };
+            colaboradores = new IColaborador[] { };
         }
 
-        public void AddColaborador(Colaborador colaborador)
+        public void AddColaborador(IColaborador colaborador)
         {
             colaboradores.Add(colaborador);
         }
     }
 
-    public class Colaborador
+    public interface IColaborador
+    {
+    }
+
+    public class Programador : IColaborador
     {
         public decimal Salario { get; set; }
         public int SaldoFerias { get; set; }
         public DateTime DataAdmissao { get; set; }
     }
 
-    public class Programador : Colaborador
+    public class Designer : IColaborador
     {
+        public decimal Salario { get; set; }
+        public int SaldoFerias { get; set; }
+        public DateTime DataAdmissao { get; set; }
     }
 
-    public class Designer : Colaborador
+    public class Tester : IColaborador
     {
+        public decimal Salario { get; set; }
+        public int SaldoFerias { get; set; }
+        public DateTime DataAdmissao { get; set; }
     }
 
-    public class Tester : Colaborador
+    public class Negocio : IColaborador
     {
-    }
-
-    public class Negocio : Colaborador
-    {
+        public decimal Salario { get; set; }
+        public int SaldoFerias { get; set; }
+        public DateTime DataAdmissao { get; set; }
     }
 
     internal class Program

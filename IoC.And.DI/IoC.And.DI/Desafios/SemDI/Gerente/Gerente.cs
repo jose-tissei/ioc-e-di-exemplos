@@ -12,51 +12,51 @@ namespace IoC.And.DI.Desafios.SemDI.Gerente
 
     public class Coordenador
     {
-        private IList<Programador> programadores;
-        private IList<Designer> designers;
-        private IList<Tester> testers;
+        private IList<Colaborador> colaboradores;
 
         public Coordenador()
         {
-            programadores = new Programador[] { };
-            designers = new Designer[] { };
-            testers = new Tester[] { };
+            colaboradores = new Colaborador[] { };
         }
 
-        public void AddProgramador(Programador programador)
+        public void AddColaborador(Colaborador colaborador)
         {
-            programadores.Add(programador);
-        }
-
-        public void AddDesigner(Designer designer)
-        {
-            designers.Add(designer);
-        }
-
-        public void AddTester(Tester tester)
-        {
-            testers.Add(tester);
+            colaboradores.Add(colaborador);
         }
     }
 
-    public class Programador
+    public class Colaborador
     {
         public decimal Salario { get; set; }
         public int SaldoFerias { get; set; }
         public DateTime DataAdmissao { get; set; }
     }
 
-    public class Designer
+    public class Programador : Colaborador
     {
-        public decimal Salario { get; set; }
-        public int SaldoFerias { get; set; }
-        public DateTime DataAdmissao { get; set; }
     }
 
-    public class Tester
+    public class Designer : Colaborador
     {
-        public decimal Salario { get; set; }
-        public int SaldoFerias { get; set; }
-        public DateTime DataAdmissao { get; set; }
+    }
+
+    public class Tester : Colaborador
+    {
+    }
+
+    public class Negocio : Colaborador
+    {
+    }
+
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            var gerente = new Coordenador();
+            gerente.AddColaborador(new Programador());
+            gerente.AddColaborador(new Designer());
+            gerente.AddColaborador(new Tester());
+            gerente.AddColaborador(new Negocio());
+        }
     }
 }

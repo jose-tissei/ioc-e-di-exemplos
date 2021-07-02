@@ -10,50 +10,35 @@ namespace IoC.And.DI.Desafios.SemDI.Gerente
      * tipo de funcionario?
      */
 
-    public class Coordenador
+    public class Coordenador : ICoordenador
     {
-        private IList<Programador> programadores;
-        private IList<Designer> designers;
-        private IList<Tester> testers;
+        public ICollection<Colaborador> Colaboradores { get; private set; }
 
         public Coordenador()
         {
-            programadores = new Programador[] { };
-            designers = new Designer[] { };
-            testers = new Tester[] { };
+            Colaboradores = new List<Colaborador> { };
         }
 
-        public void AddProgramador(Programador programador)
+        public void AddColaborador(Colaborador colaborador)
         {
-            programadores.Add(programador);
-        }
-
-        public void AddDesigner(Designer designer)
-        {
-            designers.Add(designer);
-        }
-
-        public void AddTester(Tester tester)
-        {
-            testers.Add(tester);
+            Colaboradores.Add(colaborador);
         }
     }
 
-    public class Programador
+    public interface ICoordenador
     {
-        public decimal Salario { get; set; }
-        public int SaldoFerias { get; set; }
-        public DateTime DataAdmissao { get; set; }
+        void AddColaborador(Colaborador colaborador);
     }
 
-    public class Designer
-    {
-        public decimal Salario { get; set; }
-        public int SaldoFerias { get; set; }
-        public DateTime DataAdmissao { get; set; }
-    }
+    public class Programador : Colaborador { }
 
-    public class Tester
+    public class Designer : Colaborador { }
+
+    public class Tester : Colaborador { }
+
+    public class BusinessAnalyst : Colaborador { }
+
+    public class Colaborador
     {
         public decimal Salario { get; set; }
         public int SaldoFerias { get; set; }

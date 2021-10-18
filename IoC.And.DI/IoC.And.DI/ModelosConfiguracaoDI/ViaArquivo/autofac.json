@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "IoC.And.DI",
+  "components": [
+    {
+      "type": "IoC.And.DI.ComDI.LojaOnline.LojaOnline, IoC.And.DI.ComDI.LojaOnline",
+      "services": [
+        {
+          "type": "IoC.And.DI.ComDI.LojaOnline.ILojaOnline"
+        }
+      ]
+    }
+  ]
+}

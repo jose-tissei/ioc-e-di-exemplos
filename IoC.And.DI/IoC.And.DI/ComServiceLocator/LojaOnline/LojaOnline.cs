@@ -6,25 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IoC.And.DI.ComDI.LojaOnline
+namespace IoC.And.DI.ComServiceLocator.LojaOnline
 {
-    public class LojaOnline : ILojaOnline
+    public class LojaOnline
     {
         private readonly Logger logger;
         private readonly MetodoDePagamento metodoDePagamento;
         private readonly AtualizarPedido atualizarPedido;
         private readonly Notificacao notificacao;
 
-        public LojaOnline(
-            Logger logger,
-            MetodoDePagamento metodoDePagamento,
-            AtualizarPedido atualizarPedido,
-            Notificacao notificacao)
+        public LojaOnline(ServiceLocator serviceLocator)
         {
-            this.logger = logger;
-            this.metodoDePagamento = metodoDePagamento;
-            this.atualizarPedido = atualizarPedido;
-            this.notificacao = notificacao;
+            logger = serviceLocator.Resolver<Logger>();
+            metodoDePagamento = serviceLocator.Resolver<MetodoDePagamento>();
+            atualizarPedido = serviceLocator.Resolver<AtualizarPedido>();
+            notificacao = serviceLocator.Resolver<Notificacao>();
         }
 
         public void ProcessarPedido(SemDI.LojaOnline.Pedido pedido)
@@ -35,16 +31,6 @@ namespace IoC.And.DI.ComDI.LojaOnline
             logger.Log("Pedido atualizado para Pago");
             notificacao.Notificar(pedido.Email, "Seu pedido foi pago", $"Pedido Nº {pedido.Numero} foi pago com sucesso!");
             logger.Log("Email enviado");
-        }
-    }
-
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-            new LojaOnline(new ConsoleLogger(), new PagarComPicPay(), new PedidoRepository(), new NotificarPorSMS());
-            new LojaOnline(new JsonLogger(), new PagarComPagueSeguro(), new AtualizarPedidoFacade(), new NotificarPorEmail());
-            new LojaOnline(new APILogger(), new PagarComPix(), new AtualizarPedidoFacade(), new NotificarPorPush());
         }
     }
 }
